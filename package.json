@@ -21,7 +21,9 @@
       "ecmaVersion": 12,
       "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": false }]
+    }
   },
   "prettier": {
     "singleQuote": true,
@@ -35,7 +37,10 @@
       "git add"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "gamedig": "^3.0.5",
+    "winston": "^3.3.3"
+  },
   "devDependencies": {
     "eslint": "^7.27.0",
     "husky": "^5.1.3",
