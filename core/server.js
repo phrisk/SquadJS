@@ -1,21 +1,39 @@
-import gamedig from 'gamedig';
+import A2SClient from './a2s-client.js';
 
 import logger from '../utils/logger.js';
 
 export default class Server {
   constructor(options = {}) {
-    // Check that required options are specified.
-    for (const option of ['host', 'queryPort', 'gamedigType'])
-      if (!(option in options)) throw new Error(`${option} must be specified.`);
+    // Specify default data fetcher clients.
+    this.A2SClient = options.A2SClient || A2SClient;
 
     // Store options.
-    this.host = options.host;
-    this.queryPort = options.queryPort;
-    this.gamedigType = options.gamedigType;
+    this.a2sOptions = {
+      host: options.a2sHost || options.host,
+      port: options.a2sPort || options.queryPort // Make it possible to store the query port separately as it's a fairly commonly used port.
+    };
 
+    // Initialise server properties.
     this.intervaledTasks = {};
 
+    // Initialise plugin system properties.
     this.plugins = [];
+  }
+
+  async watch() {
+    await this.initialiseA2SClient();
+  }
+
+  async unwatch() {
+    await this.destroyA2SClient();
+  }
+
+  async initialiseA2SClient() {
+    this.a2sClient = new this.A2SClient(this.a2sOptions);
+  }
+
+  async destroyA2SClient() {
+    this.a2sClient = null;
   }
 
   initialiseIntervaledTask(name, func, interval) {
@@ -35,21 +53,6 @@ export default class Server {
 
   stopIntervaledTask(name) {
     clearTimeout(this.intervaledTasks[name]?.timeout);
-  }
-
-  async getRawA2SInformation() {
-    logger.info('Server fetching A2S information...');
-    try {
-      const data = await gamedig.query({
-        type: this.gamedigType,
-        host: this.host,
-        port: this.queryPort
-      });
-      logger.info('Server fetched A2S information.');
-      return data;
-    } catch (err) {
-      logger.error('Server failed to get A2S information');
-    }
   }
 
   mountPlugin(pluginInstanceToMount) {

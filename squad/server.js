@@ -1,11 +1,13 @@
 import CoreServer from '../core/server.js';
 
+import SquadA2SClient from './a2s-client.js';
+
 import UpdatedA2sInformation from './events/updated-a2s-information.js';
 
 export default class SquadServer extends CoreServer {
   constructor(options = {}) {
-    // Set game specific predefined options.
-    options.gamedigType = options.gamedigType || 'squad';
+    // Specify default data fetcher clients.
+    options.A2SClient = options.A2SClient || SquadA2SClient;
 
     // Initialise parent class.
     super(options);
@@ -32,40 +34,40 @@ export default class SquadServer extends CoreServer {
     this.stopIntervaledTask('getA2SInformation');
 
     // Fetch A2S information.
-    const data = await this.getRawA2SInformation();
+    const data = await this.a2sClient.getA2SInformation();
 
     // Skip rest of method if A2S information was not fetched.
     if (!data) return;
 
     // Update the server object with the data.
     this.name = data.name;
-    this.version = data.raw.version;
+    this.version = data.version;
 
-    this.playerSlots = parseInt(data.maxplayers);
-    this.publicSlots = parseInt(data.raw.rules.NUMPUBCONN);
-    this.reserveSlots = parseInt(data.raw.rules.NUMPRIVCONN);
+    this.playerSlots = data.playerSlots;
+    this.publicSlots = data.publicSlots;
+    this.reserveSlots = data.reserveSlots;
 
-    this.playerCount = parseInt(data.raw.rules.PlayerCount_i);
-    this.publicQueueLength = parseInt(data.raw.rules.PublicQueue_i);
-    this.reserveQueueLength = parseInt(data.raw.rules.ReservedQueue_i);
+    this.playerCount = data.playerCount;
+    this.publicQueueLength = data.publicQueueLength;
+    this.reserveQueueLength = data.reserveQueueLength;
 
-    this.matchTimeout = parseFloat(data.raw.rules.MatchTimeout_f);
+    this.matchTimeout = data.matchTimeout;
 
     // Emit event with the data.
     this.emitEvent(
       new UpdatedA2sInformation(this, {
-        name: this.name,
-        version: this.version,
+        name: data.name,
+        version: data.version,
 
-        playerSlots: this.playerSlots,
-        publicSlots: this.publicSlots,
-        reserveSlots: this.reserveSlots,
+        playerSlots: data.playerSlots,
+        publicSlots: data.publicSlots,
+        reserveSlots: data.reserveSlots,
 
-        playerCount: this.playerCount,
-        publicQueueLength: this.publicQueueLength,
-        reserveQueueLength: this.reserveQueueLength,
+        playerCount: data.playerCount,
+        publicQueueLength: data.publicQueueLength,
+        reserveQueueLength: data.reserveQueueLength,
 
-        matchTimeout: this.matchTimeout
+        matchTimeout: data.matchTimeout
       })
     );
 
@@ -73,6 +75,8 @@ export default class SquadServer extends CoreServer {
   }
 
   async watch() {
+    await super.watch();
+
     // Start intervaled tasks with no delay.
     await this.getA2SInformation();
   }
@@ -80,5 +84,7 @@ export default class SquadServer extends CoreServer {
   async unwatch() {
     // Stop intervaled tasks.
     this.stopIntervaledTask('getA2SInformation');
+
+    await super.unwatch();
   }
 }
