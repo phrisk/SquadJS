@@ -1,6 +1,6 @@
 import Event from '../../core/event.js';
 
-export default class UpdatedA2SInformation extends Event {
+export default class RefreshedA2SServerInformation extends Event {
   constructor(server, data = {}) {
     super(server);
 
