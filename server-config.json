@@ -329,7 +329,7 @@
       "color": 16761867
     },
     {
-      "plugin": "DiscordServerStatus",
+      "plugin": "DiscordServerStatusExtra",
       "enabled": true,
       "discordClient": "discord",
       "messageStore": "sqlite",
