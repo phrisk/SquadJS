@@ -49,7 +49,7 @@ export default class SelectiveFogOfWar extends BasePlugin {
     console.log('SelectiveFow: Filering on ' + this.options.layers?.join(', '))
 
     if (this.options.layers?.length > 0 && 
-       !this.options.layers?.some(l => this.server.currentLayer?.name?.toUpperCase().includes(l.toUpperCase))) {
+       !this.options.layers?.some(l => this.server.currentLayer?.name?.toUpperCase().includes(l.toUpperCase()))) {
          console.log('SelectiveFow: Not Matched - skipping');
          return;
     }
