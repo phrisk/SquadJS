@@ -132,7 +132,7 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
   }
 
   getRoundDuration() {
-    if (this.isOffline || !this.roundStart) return '';
+    if (this.isOffline || !this.roundStart) return ' ';
 
     let ms = new Date() - this.roundStart;
     let seconds = Math.floor(ms / 1000) % 60;
