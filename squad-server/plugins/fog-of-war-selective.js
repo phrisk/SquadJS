@@ -46,6 +46,7 @@ export default class SelectiveFogOfWar extends BasePlugin {
   async onNewGame() {
     console.log('SelectiveFow: New map!');
     console.log('SelectiveFow: Current Layer: ' + this.server.currentLayer?.name);
+    console.log('SelectiveFow: Filering on ' + this.options.layers?.join(', '))
 
     if (this.options.layers?.length > 0 && 
        !this.options.layers?.some(l => this.server.currentLayer?.name?.toUpperCase().includes(l.toUpperCase))) {
