@@ -366,7 +366,7 @@
       "plugin": "SelectiveFogOfWar",
       "enabled": true,
       "mode": 0,
-      "delay": 5000,
+      "delay": 10000,
       "layers": [
         "RAAS"
       ]

@@ -55,7 +55,7 @@ export default class SelectiveFogOfWar extends BasePlugin {
     }
 
     setTimeout(() => {
-      console.log('SelectiveFow: Turning off FoW');
+      console.log('SelectiveFow: Setting FoW ' + this.options.mode);
       this.server.rcon.setFogOfWar(this.options.mode);
     }, this.options.delay);
   }
