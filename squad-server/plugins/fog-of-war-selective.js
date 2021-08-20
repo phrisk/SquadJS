@@ -44,10 +44,17 @@ export default class SelectiveFogOfWar extends BasePlugin {
   }
 
   async onNewGame() {
+    console.log('SelectiveFow: New map!');
+    console.log('SelectiveFow: Current Layer: ' + this.server.currentLayer?.name);
+
     if (this.options.layers?.length > 0 && 
-       !this.options.layers?.some(l => this.server.currentLayer?.name?.toUpperCase().includes(l.toUpperCase))) return;
+       !this.options.layers?.some(l => this.server.currentLayer?.name?.toUpperCase().includes(l.toUpperCase))) {
+         console.log('SelectiveFow: Not Matched - skipping');
+         return;
+    }
 
     setTimeout(() => {
+      console.log('SelectiveFow: Turning off FoW');
       this.server.rcon.setFogOfWar(this.options.mode);
     }, this.options.delay);
   }
