@@ -209,11 +209,13 @@ export default class Rcon extends EventEmitter {
 
         Logger.verbose('RCON', 1, `Failed to connect to: ${this.host}:${this.port}`, err);
 
-        // Force Reconnect
-        Logger.verbose('RCON', 1, `Sleeping ${this.autoReconnectDelay}ms before reconnecting.`);
-        setTimeout(this.connect, this.autoReconnectDelay);
+        // Force Reconnect on timeout - server may be down at startup
+        if (err.code === 'ETIMEDOUT') {
+          Logger.verbose('RCON', 1, `Sleeping ${this.autoReconnectDelay}ms before reconnecting.`);
+          setTimeout(this.connect, this.autoReconnectDelay);
+        }
 
-        // reject(err);
+        reject(err);
       };
 
       this.client.once('connect', onConnect);
