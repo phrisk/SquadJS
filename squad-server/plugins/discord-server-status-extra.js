@@ -29,6 +29,11 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
         required: false,
         description: "Whether to update the bot's status with server information.",
         default: true
+      },
+      includeLayerImage: {
+        required: false,
+        description: "Whether to include the layer image within the embed.",
+        default: false
       }
     };
   }
@@ -106,11 +111,13 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
       }\`\`\``
     );
 
-    embed.setImage(
-      this.server.currentLayer
-        ? `https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/images/${this.server.currentLayer.classname}.jpg`
-        : undefined
-    );
+    if (this.options.includeLayerImage) {
+      embed.setImage(
+        this.server.currentLayer
+          ? `https://raw.githubusercontent.com/Squad-Wiki-Editorial/squad-wiki-pipeline-map-data/master/completed_output/_Current%20Version/images/${this.server.currentLayer.classname}.jpg`
+          : undefined
+      );
+    }
 
     embed.setTimestamp(new Date());
 

@@ -334,7 +334,8 @@
       "discordClient": "discord",
       "messageStore": "sqlite",
       "updateInterval": 60000,
-      "setBotStatus": true
+      "setBotStatus": true,
+      "command": "!server"
     },
     {
       "plugin": "DiscordSquadCreated",
@@ -349,7 +350,7 @@
       "role": ""
     },
     {
-      "plugin": "DiscordTeamkill",
+      "plugin": "DiscordKillFeedExtra",
       "enabled": true,
       "discordClient": "discord",
       "channelID": "876473315827544145",
