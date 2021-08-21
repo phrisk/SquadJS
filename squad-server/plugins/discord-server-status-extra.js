@@ -114,14 +114,13 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
 
     embed.setTimestamp(new Date());
 
-    // Set gradient embed color.
     embed.setColor(this.isOffline ? '#e74d3c' : '#2ecc70');
 
     return embed;
   }
 
   async updateStatus() {
-    if (!this.options.setBotStatus) return;
+    if (!this.options.setBotStatus || this.isOffline) return;
 
     await this.options.discordClient.user.setActivity(
       `(${this.server.a2sPlayerCount}/${this.server.publicSlots}) ${
