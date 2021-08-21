@@ -383,7 +383,7 @@
       "role": ""
     },
     {
-      "plugin": "DiscordKillFeedExtra",
+      "plugin": "DiscordTeamkillExtra",
       "enabled": true,
       "discordClient": "discord",
       "channelID": "876473315827544145",
