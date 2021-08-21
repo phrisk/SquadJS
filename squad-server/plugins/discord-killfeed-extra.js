@@ -54,12 +54,12 @@ export default class DiscordKillFeedExtra extends DiscordBasePlugin {
     const fields = [
       {
         name: "Attacker's Name",
-        value: info.attacker.name,
+        value: info.attacker?.name,
         inline: true
       },
       {
         name: "Attacker's SteamID",
-        value: `[${info.attacker.steamID}](https://steamcommunity.com/profiles/${info.attacker.steamID})`,
+        value: `[${info.attacker?.steamID}](https://steamcommunity.com/profiles/${info.attacker?.steamID})`,
         inline: true
       },
       {
@@ -68,12 +68,12 @@ export default class DiscordKillFeedExtra extends DiscordBasePlugin {
       },
       {
         name: "Victim's Name",
-        value: info.victim.name,
+        value: info.victim?.name,
         inline: true
       },
       {
         name: "Victim's SteamID",
-        value: `[${info.victim.steamID}](https://steamcommunity.com/profiles/${info.victim.steamID})`,
+        value: `[${info.victim?.steamID}](https://steamcommunity.com/profiles/${info.victim?.steamID})`,
         inline: true
       }
     ];
@@ -81,22 +81,22 @@ export default class DiscordKillFeedExtra extends DiscordBasePlugin {
     if (!this.options.disableSCBL)
       fields.push({
         name: 'Squad Community Ban List',
-        value: `[Attacker's Bans](https://squad-community-ban-list.com/search/${info.attacker.steamID})`
+        value: `[Attacker's Bans](https://squad-community-ban-list.com/search/${info.attacker?.steamID})`
       });
 
     fields.push({
       name: "Note",
       value: `\`\`\`
 Date:     ${new Date().toISOString()}
-Attacker: ${info.attacker.name}
-Victim:   ${info.victim.name}
+Attacker: ${info.attacker?.name}
+Victim:   ${info.victim?.name}
 Weapon:   ${info.weapon}
 \`\`\``
     })
 
     await this.sendDiscordMessage({
       embed: {
-        title: `${info.attacker.name}`,
+        title: `${info.attacker?.name}`,
         color: this.options.color,
         fields: fields,
         timestamp: info.time.toISOString()

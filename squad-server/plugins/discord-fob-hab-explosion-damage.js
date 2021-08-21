@@ -51,12 +51,12 @@ export default class DiscordFOBHABExplosionDamage extends DiscordBasePlugin {
     const fields = [
       {
         name: "Player's Name",
-        value: info.player?.name,
+        value: info.player.name,
         inline: true
       },
       {
         name: "Player's SteamID",
-        value: `[${info.player?.steamID}](https://steamcommunity.com/profiles/${info.player?.steamID})`,
+        value: `[${info.player.steamID}](https://steamcommunity.com/profiles/${info.player.steamID})`,
         inline: true
       },
       {
@@ -71,7 +71,7 @@ export default class DiscordFOBHABExplosionDamage extends DiscordBasePlugin {
 
     await this.sendDiscordMessage({
       embed: {
-        title: `FOB/HAB Explosion Damage: ${info.player?.name}`,
+        title: `FOB/HAB Explosion Damage: ${info.player.name}`,
         color: this.options.color,
         fields: fields,
         timestamp: info.time.toISOString()
