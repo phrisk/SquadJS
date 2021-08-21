@@ -251,6 +251,39 @@
             "squad",
             "broadcast"
           ]
+        },
+        {
+          "command": "seedanvil",
+          "type": "broadcast",
+          "response": "Do not climb the Cliffs, Fight over Lavander Farm only!",
+          "ignoreChats": [
+            "all",
+            "team",
+            "squad",
+            "broadcast"
+          ]
+        },
+        {
+          "command": "seedsumari",
+          "type": "broadcast",
+          "response": "Do not push south, Fight over Walled Courts only!",
+          "ignoreChats": [
+            "all",
+            "team",
+            "squad",
+            "broadcast"
+          ]
+        },
+        {
+          "command": "seedmutaha",
+          "type": "broadcast",
+          "response": "Do not cross the Red Lines, Fight over Baraka Road Blockade only!",
+          "ignoreChats": [
+            "all",
+            "team",
+            "squad",
+            "broadcast"
+          ]
         }
       ]
     },

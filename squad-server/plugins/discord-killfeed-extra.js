@@ -96,7 +96,7 @@ Weapon:   ${info.weapon}
 
     await this.sendDiscordMessage({
       embed: {
-        title: `KillFeed: ${info.attacker.name}`,
+        title: `${info.attacker.name}`,
         color: this.options.color,
         fields: fields,
         timestamp: info.time.toISOString()
