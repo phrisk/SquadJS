@@ -102,12 +102,12 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
 
     embed.addField(
       'Current Layer',
-      `\`\`\`${this.server.currentLayer?.name || this.server.currentLayerClassname?.replaceAll('_', ' ') || 'Unknown'}\`\`\``
+      `\`\`\`${this.server.currentLayer?.name || this.server.currentLayerClassname?.replace(/["_"]/g, " ") || 'Unknown'}\`\`\``
     );
     embed.addField(
       'Next Layer',
       `\`\`\`${
-        this.server.nextLayer?.name || this.server.nextLayerClassname?.replaceAll('_', ' ') || (this.server.nextLayerToBeVoted ? 'To be voted' : 'Unknown')
+        this.server.nextLayer?.name || this.server.nextLayerClassname?.replace(/["_"]/g, " ") || (this.server.nextLayerToBeVoted ? 'To be voted' : 'Unknown')
       }\`\`\``
     );
 
@@ -131,7 +131,7 @@ export default class DiscordServerStatusExtra extends DiscordBaseMessageUpdater 
 
     await this.options.discordClient.user.setActivity(
       `(${this.server.a2sPlayerCount}/${this.server.publicSlots}) ${
-        this.server.currentLayer?.name || this.server.currentLayerClassname?.replaceAll('_', ' ') || 'Unknown'
+        this.server.currentLayer?.name || this.server.currentLayerClassname?.replace(/["_"]/g, " ") || 'Unknown'
       }`,
       { type: 'WATCHING' }
     );
