@@ -227,7 +227,7 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
     this.verbose(1, `Players: ${this.server.players.map(p => p.steamID).join(', ')}`);
     
     for (const steamID of Object.keys(this.trackedPlayers))
-      if (!(steamID in this.server.players.map((p) => p.steamID))) this.untrackPlayer(steamID);
+      if (!this.server.players.some(p => p.steamID == steamID)) this.untrackPlayer(steamID);
   }
 
   msFormat(ms) {
