@@ -125,9 +125,9 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
       this.untrackPlayer(player.steamID);
   }
 
-  async onUpdatedPlayerInformation() {
-    await this.clearDisconnectedPlayers();
+  async onUpdatedPlayerInformation() {    
     await this.updateTrackingList();
+    await this.clearDisconnectedPlayers();
     await this.processQueue();
   }
 
