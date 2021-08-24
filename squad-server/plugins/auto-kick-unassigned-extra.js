@@ -141,7 +141,11 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
     for (const steamID of Object.keys(this.trackedPlayers)) {
       const tracker = this.trackedPlayers[steamID];
 
+      this.verbose(1, `Processing: ${tracker.player.name}`);
+
       if (tracker.doKick) {
+        this.verbose(1, `Kicking: ${tracker.player.name}`);
+
         if (!(tracker.player.steamID in this.trackedPlayers)) return;
 
         this.server.rcon.kick(info.player.steamID, this.options.kickMessage);
@@ -155,6 +159,8 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
       }
 
       else if (tracker.doWarning) {
+        this.verbose(1, `Warning: ${tracker.player.name}`);
+
         if (!(tracker.player.steamID in this.trackedPlayers)) return;
 
         const msLeft = this.kickTimeout - this.warningInterval * (tracker.warnings + 1);
@@ -240,10 +246,12 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
 
     tracker.warnTimerID = setInterval(async () => {
       tracker.doWarning = true;
+      this.verbose(1, `Queuing Warning for: ${info.player.name}`);
     }, this.warningInterval);
 
     tracker.kickTimerID = setTimeout(async () => {
       tracker.doKick = true;
+      this.verbose(1, `Queuing Kick for: ${info.player.name}`);
     }, this.kickTimeout);
 
     return tracker;
