@@ -48,6 +48,10 @@ export default class DiscordFOBHABExplosionDamageExtra extends DiscordBasePlugin
     if (!info.weapon.match(/_Deployable_/i)) return;
     if (!info.player) return;
 
+    let teamName = this.server.squads?.find(s => s.teamName && s.teamID == info.player.teamID)?.teamName 
+      || info.player.teamID
+      || 'Unknown';
+
     const fields = [
       {
         name: "Player's Name",
@@ -61,7 +65,7 @@ export default class DiscordFOBHABExplosionDamageExtra extends DiscordBasePlugin
       },
       {
         name: "Player's Team",
-        value: info.player.teamID || 'Unknown'
+        value: teamName
       },
       {
         name: 'Deployable',
@@ -78,7 +82,7 @@ export default class DiscordFOBHABExplosionDamageExtra extends DiscordBasePlugin
       value: `\`\`\`
 Date:       ${new Date().toISOString()}
 Player:     ${info.player.name}
-Team:       ${info.player.teamID || 'Unknown'}
+Team:       ${teamName}
 Deployable: ${info.deployable}
 Weapon:     ${info.weapon}
 \`\`\``
