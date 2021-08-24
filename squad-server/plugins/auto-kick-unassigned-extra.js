@@ -222,6 +222,10 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
   }
 
   async clearDisconnectedPlayers() {
+    this.verbose(1, `Clearing Disconnected Players`);
+    this.verbose(1, `Tracked Players: ${Object.keys(this.trackedPlayers).join(', ')}`);
+    this.verbose(1, `Players: ${this.server.players.map(p => p.steamID).join(', ')}`);
+    
     for (const steamID of Object.keys(this.trackedPlayers))
       if (!(steamID in this.server.players.map((p) => p.steamID))) this.untrackPlayer(steamID);
   }
