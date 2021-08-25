@@ -132,9 +132,9 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
   }
 
   async processQueue() {
-    this.verbose(1, `Processing ${Object.keys(this.trackedPlayers).length} Tracked Players`);
-
     if (this.isProcessingQueue) return;
+
+    this.verbose(1, `Processing ${Object.keys(this.trackedPlayers).length} Tracked Players`);
 
     this.isProcessingQueue = true;
 
@@ -143,6 +143,8 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
 
       if (tracker.doKick) {
         if (!(tracker.player.steamID in this.trackedPlayers)) return;
+
+        this.verbose(1, `Kicking: ${tracker.player.name} (${tracker.player.steamID})`)
 
         this.server.rcon.kick(tracker.player.steamID, this.options.kickMessage);
         this.server.emit('PLAYER_AUTO_KICKED', {
