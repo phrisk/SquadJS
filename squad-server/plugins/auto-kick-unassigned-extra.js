@@ -132,7 +132,7 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
   }
 
   async processQueue() {
-    this.verbose(1, `Processing ${Object.keys(this.trackedPlayers).length} Tracked Players`);
+    this.verbose(2, `Processing ${Object.keys(this.trackedPlayers).length} Tracked Players`);
 
     if (this.isProcessingQueue) return;
 
@@ -141,11 +141,7 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
     for (const steamID of Object.keys(this.trackedPlayers)) {
       const tracker = this.trackedPlayers[steamID];
 
-      this.verbose(1, `Processing: ${tracker.player.name}`);
-
       if (tracker.doKick) {
-        this.verbose(1, `Kicking: ${tracker.player.name}`);
-
         if (!(tracker.player.steamID in this.trackedPlayers)) return;
 
         this.server.rcon.kick(info.player.steamID, this.options.kickMessage);
@@ -159,8 +155,6 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
       }
 
       else if (tracker.doWarning) {
-        this.verbose(1, `Warning: ${tracker.player.name}`);
-
         if (!(tracker.player.steamID in this.trackedPlayers)) return;
 
         const msLeft = this.kickTimeout - this.warningInterval * (tracker.warnings + 1);
@@ -184,7 +178,7 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
     const run = !(this.betweenRounds || this.server.players.length < this.options.playerThreshold);
 
     this.verbose(
-      1,
+      3,
       `Update Tracking List? ${run} (Between rounds: ${
         this.betweenRounds
       }, Below player threshold: ${this.server.players.length < this.options.playerThreshold})`
@@ -222,9 +216,9 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
   }
 
   async clearDisconnectedPlayers() {
-    this.verbose(1, `Clearing Disconnected Players`);
-    this.verbose(1, `Tracked Players: ${Object.keys(this.trackedPlayers).join(', ')}`);
-    this.verbose(1, `Players: ${this.server.players.map(p => p.steamID).join(', ')}`);
+    this.verbose(2, `Clearing Disconnected Players`);
+    this.verbose(3, `Tracked Players: ${Object.keys(this.trackedPlayers).join(', ')}`);
+    this.verbose(3, `Players: ${this.server.players.map(p => p.steamID).join(', ')}`);
     
     for (const steamID of Object.keys(this.trackedPlayers))
       if (!this.server.players.some(p => p.steamID == steamID)) this.untrackPlayer(steamID);
@@ -240,7 +234,7 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
   }
 
   trackPlayer(info) {
-    this.verbose(1, `Tracking: ${info.player.name}`);
+    this.verbose(2, `Tracking: ${info.player.name}`);
 
     const tracker = {
       player: info.player,
@@ -250,12 +244,12 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
 
     tracker.warnTimerID = setInterval(async () => {
       tracker.doWarning = true;
-      this.verbose(1, `Queuing Warning for: ${info.player.name}`);
+      this.verbose(2, `Queuing Warning for: ${info.player.name}`);
     }, this.warningInterval);
 
     tracker.kickTimerID = setTimeout(async () => {
       tracker.doKick = true;
-      this.verbose(1, `Queuing Kick for: ${info.player.name}`);
+      this.verbose(2, `Queuing Kick for: ${info.player.name}`);
     }, this.kickTimeout);
 
     return tracker;
@@ -266,6 +260,6 @@ export default class AutoKickUnassignedExtra extends BasePlugin {
     clearInterval(tracker.warnTimerID);
     clearTimeout(tracker.kickTimerID);
     delete this.trackedPlayers[steamID];
-    this.verbose(1, `unTrack: ${tracker.player.name}`);
+    this.verbose(2, `unTrack: ${tracker.player.name}`);
   }
 }
