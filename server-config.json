@@ -38,7 +38,7 @@
       "unassignedTimer": 360,
       "playerThreshold": 93,
       "roundStartDelay": 900,
-      "ignoreAdmins": false,
+      "ignoreAdmins": true,
       "ignoreWhitelist": false
     },
     {
