@@ -32,7 +32,7 @@
     {
       "plugin": "AutoKickUnassignedExtra",
       "enabled": true,
-      "warningMessage": "Join a squad, you are unassigned and will be kicked",
+      "warningMessage": "Please join a squad, unassigned players will be kicked",
       "kickMessage": "Unassigned/AFK - Thank you for choosing [S&G]!",
       "frequencyOfWarnings": 60,
       "unassignedTimer": 360,
@@ -82,7 +82,7 @@
         {
           "command": "rules",
           "type": "broadcast",
-          "response": "Visit our discord for full list of Rules at https://discord.gg/Jvyyh8wXnb",
+          "response": "Visit our Discord for full list of Rules at https://discord.gg/Jvyyh8wXnb",
           "ignoreChats": [
             "broadcast"
           ]
@@ -156,7 +156,7 @@
         {
           "command": "asset",
           "type": "broadcast",
-          "response": "Name your squad after the asset / asset class you wish to claim, e.g. BTR / APC / ARMOUR and other generic names won't be considered as a valid claim",
+          "response": "Name your squad after the asset / asset class you wish to claim, e.g. \"BTR\" / \"APC\" --- \"ARMOUR\" and other generic names won't be considered as a valid claim",
           "ignoreChats": [
             "all",
             "team",
