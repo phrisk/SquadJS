@@ -289,8 +289,8 @@
     },
     {
       "plugin": "DBLog",
-      "enabled": false,
-      "database": "mysql",
+      "enabled": true,
+      "database": "sqlite",
       "overrideServerID": null
     },
     {
