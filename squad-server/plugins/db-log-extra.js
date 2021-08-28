@@ -394,6 +394,7 @@ export default class DBLogExtra extends BasePlugin {
     });
 
     this.onTickRate = this.onTickRate.bind(this);
+    this.onUpdatedA2SInformation = this.onUpdatedA2SInformation.bind(this);
     this.onNewGame = this.onNewGame.bind(this);
     this.onPlayerWounded = this.onPlayerWounded.bind(this);
     this.onPlayerDied = this.onPlayerDied.bind(this);
@@ -428,6 +429,7 @@ export default class DBLogExtra extends BasePlugin {
     });
 
     this.server.on('TICK_RATE', this.onTickRate);
+    this.server.on('UPDATED_A2S_INFORMATION', this.onUpdatedA2SInformation);
     this.server.on('NEW_GAME', this.onNewGame);
     this.server.on('PLAYER_WOUNDED', this.onPlayerWounded);
     this.server.on('PLAYER_DIED', this.onPlayerDied);
@@ -436,6 +438,7 @@ export default class DBLogExtra extends BasePlugin {
 
   async unmount() {
     this.server.removeEventListener('TICK_RATE', this.onTickRate);
+    this.server.removeEventListener('UPDATED_A2S_INFORMATION', this.onUpdatedA2SInformation);
     this.server.removeEventListener('NEW_GAME', this.onNewGame);
     this.server.removeEventListener('PLAYER_WOUNDED', this.onPlayerWounded);
     this.server.removeEventListener('PLAYER_DIED', this.onPlayerDied);
@@ -447,6 +450,16 @@ export default class DBLogExtra extends BasePlugin {
       id: this.options.overrideServerID || this.server.id,
       name: this.server.serverName,
       lastSeen: new Date()
+    });
+  }
+
+  async onUpdatedA2SInformation(info) {
+    await this.models.PlayerCount.create({
+      server: this.options.overrideServerID || this.server.id,
+      match: this.match ? this.match.id : null,
+      players: info.a2sPlayerCount,
+      publicQueue: info.publicQueue,
+      reserveQueue: info.reserveQueue
     });
   }
 
