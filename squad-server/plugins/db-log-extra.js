@@ -394,7 +394,6 @@ export default class DBLogExtra extends BasePlugin {
     });
 
     this.onTickRate = this.onTickRate.bind(this);
-    this.onUpdatedA2SInformation = this.onUpdatedA2SInformation.bind(this);
     this.onNewGame = this.onNewGame.bind(this);
     this.onPlayerWounded = this.onPlayerWounded.bind(this);
     this.onPlayerDied = this.onPlayerDied.bind(this);
