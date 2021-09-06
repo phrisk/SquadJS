@@ -369,7 +369,7 @@
     },
     {
       "plugin": "DiscordServerStatusExtra",
-      "enabled": true,
+      "enabled": false,
       "discordClient": "discord",
       "messageStore": "sqlite",
       "updateInterval": 60000,
