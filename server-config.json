@@ -123,7 +123,7 @@
         {
           "command": "mbt",
           "type": "broadcast",
-          "response": "MBTs require a 3-man crew at all times; if you lose crew members, cease engagement and RTB / replace crew",
+          "response": "MBTs require a 2-man crew at all times; if you lose crew members, cease engagement and RTB / replace crew",
           "ignoreChats": [
             "all",
             "team",
