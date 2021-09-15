@@ -53,7 +53,7 @@
         {
           "command": "admin",
           "type": "broadcast",
-          "response": "Need an admin? Head to our #Contact_an_Admin on our discord https://discord.gg/Jvyyh8wXnb",
+          "response": "Need an admin? Head to our #Contact_an_Admin on our discord https://discord.gg/shits-n-giggles",
           "ignoreChats": [
             "squad",
             "admin",
@@ -74,7 +74,7 @@
         {
           "command": "discord",
           "type": "broadcast",
-          "response": "Join our Discord at https://discord.gg/Jvyyh8wXnb",
+          "response": "Join our Discord at https://discord.gg/shits-n-giggles",
           "ignoreChats": [
             "broadcast"
           ]
@@ -82,7 +82,7 @@
         {
           "command": "rules",
           "type": "broadcast",
-          "response": "Visit our Discord for full list of Rules at https://discord.gg/Jvyyh8wXnb",
+          "response": "Visit our Discord for full list of Rules at https://discord.gg/shits-n-giggles",
           "ignoreChats": [
             "broadcast"
           ]
